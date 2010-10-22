@@ -37,11 +37,11 @@ class ImportComponent extends Object {
 				// for each header field 
 				foreach ($fields as $f => $field) {
 					// get the data field from Model.field
-					if (strpos($field,'.') === false) {
-						$data[$this->controller->modelClass][$r][$field] = $row[$f];
-					} else {
+					if (strpos($field,'.')) {
 						$keys = explode('.',$field);
 						$data[$keys[0]][$r][$keys[1]] = $row[$f];
+					} else {
+						$data[$this->controller->modelClass][$r][$field] = $row[$f];
 					}
 				}
 			}
