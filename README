@@ -1,9 +1,0 @@
-Instructions
-============
-
-- Add Component to controller
-- Upload a csv file where the first line of the file contains fieldnames (optional use of Model.field syntax):
-	Post.title,Post.date,content
-- $this->data = $this->Csv->Import($filepath);
-- Recommend use of 'whitespace' parameter for security. $this->Model->saveAll($this->data, array('whitelist' => array('Post.title', 'Post.date', 'Post.content')));
-
