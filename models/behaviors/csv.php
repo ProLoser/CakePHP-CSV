@@ -1,13 +1,36 @@
 <?php
 /**
- * CSV Component
+ * Csv Model Behavior
+ * 
+ * Allows the IO of csv files with a standard saveAll() format data array. Does not save to db.
  *
- * @author Dean Sofer (proloser@hotmail.com)
- * @version 1.0
- * @package CSV Plugin
+ * @package default
+ * @author Dean Sofer
+ * @version $Id$
+ * @copyright 
  **/
-class CsvComponent extends Object {
-	
+class CsvBehavior extends ModelBehavior {
+
+	/**
+	 * Contains configuration settings for use with individual model objects.
+	 * Individual model settings should be stored as an associative array, 
+	 * keyed off of the model name.
+	 *
+	 * @var array
+	 * @access public
+	 * @see Model::$alias
+	 */
+	var $settings = array();
+
+	/**
+	 * Allows the mapping of preg-compatible regular expressions to public or
+	 * private methods in this class, where the array key is a /-delimited regular
+	 * expression, and the value is a class method.  Similar to the functionality of
+	 * the findBy* / findAllBy* magic methods.
+	 *
+	 * @var array
+	 * @access public
+	 */
 	var $defaults = array(
 		'length' => 0,
 		'delimiter' => ',',
@@ -15,13 +38,20 @@ class CsvComponent extends Object {
 		'escape' => '\\',
 		'headers' => true,
 	);
-	
-	function initialize(&$controller, $settings = array()) {
-		// saving the controller reference for later use
-		$this->controller =& $controller;
-		$this->defaults = array_merge($this->defaults, $settings);
+
+
+	/**
+	 * Initiate Csv Behavior
+	 *
+	 * @param object $model
+	 * @param array $config
+	 * @return void
+	 * @access public
+	 */
+	function setup(&$model, $config = array()) {
+		$this->settings[$model->alias] = array_merge($this->defaults, $config);
 	}
-	
+
 	/**
 	 * Import function
 	 *
@@ -29,10 +59,14 @@ class CsvComponent extends Object {
 	 * @return array of all data from the csv file in [Model][field] format
 	 * @author Dean Sofer
 	 */
-	function import($filename, $fields = array(), $options = array()) {
+	function importCsv(&$model, $filename, $fields = array(), $options = array()) {
 		$options = array_merge($this->defaults, $options);
 		$data = array();
-
+		
+		if (!$this->trigger($model, 'beforeImportCsv', array($filename, $fields, $options))) {
+			return false;
+		}
+				
 		// open the file
 		if ($file = @fopen(WWW_ROOT . $filename, 'r')) {
 			if (empty($fields)) {
@@ -54,7 +88,7 @@ class CsvComponent extends Object {
 							$data[$r][$keys[0]][$keys[1]] = $row[$f];
 						}
 					} else {
-						$data[$r][$this->controller->modelClass][$field] = $row[$f];
+						$data[$r][$model->alias][$field] = $row[$f];
 					}
 				}
 				$r++;
@@ -62,6 +96,8 @@ class CsvComponent extends Object {
 
 			// close the file
 			fclose($file);
+			
+			$this->trigger($model, 'afterImportCsv', array($data));
 
 			// return the messages
 			return $data;
@@ -78,8 +114,12 @@ class CsvComponent extends Object {
 	 * @return void
 	 * @author Dean
 	 */
-	public function export($filename, $data, $options = array()) {
+	public function exportCsv(&$model, $filename, $data, $options = array()) {
 		$options = array_merge($this->defaults, $options);
+		
+		if (!$this->trigger($model, 'beforeExportCsv'), array($filename, $data, $options)) {
+			return false;
+		}
 		
 		// open the file
 		if ($file = @fopen(WWW_ROOT . $filename, 'w')) {
@@ -116,11 +156,13 @@ class CsvComponent extends Object {
 
 			// close the file
 			fclose($file);
+			
+			$this->trigger($model, 'afterExportCsv', array());
 
 			return $r;
 		} else {
 			return false;
 		}
 	}
+
 }
-?>

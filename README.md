@@ -3,11 +3,25 @@
 Allows the importing and exporting of a standard $this->data formatted array to and from csv files.
 Doesn't currently support HABTM.
 
-## Instructions
+## Options
+
+Importing, exporting and setup come with the same options and default values
+
+<pre>$options = array(
+	// Refer to php.net fgetcsv for more information
+	'length' => 0,
+	'delimiter' => ',',
+	'enclosure' => '"',
+	'escape' => '\\',
+	// Generates a Model.field headings row from the csv file
+	'headers' => true, 
+)</pre>
+
+## Component Instructions
 
 1. Add Component to controller
 
-<pre>var $components = array('Csv.Csv');</pre>
+<pre>var $components = array('Csv.Csv' => $options);</pre>
 
 ### Importing
 
@@ -22,7 +36,7 @@ Post.title, Post.created, Post.modified, body, user_id, Section.name, Category.0
 ..., ..., ...
 </pre>
 
-<pre>$this->data = $this->Csv->import($filepath);</pre>
+<pre>$this->data = $this->Csv->import($filepath, $options);</pre>
 
 Approach 2: Pass an array of fields (in order) to the method
 
@@ -40,10 +54,22 @@ Approach 2: Pass an array of fields (in order) to the method
 
 3. Export to a file in a writeable directory
 
-<pre>$this->Csv->export($filepath, $data, array(
-	// Default values
-	'delimiter' => ',',
-	'enclosure' => '"',
-	// Generates a Model.field headings row
-	'headers' => true, 
-));</pre>
+<pre>$this->Csv->export($filepath, $data, $options);</pre>
+
+## Behavior Instructions
+
+The instructions are identical to the component, from a few method name changes and extra callbacks
+
+1. Add Behavior to the model
+
+<pre>var $components = array('Csv.Csv' => $options);</pre>
+
+2. Upload a csv file to the server
+
+3. Follow instruction for the component, Import using <code>$this->importCsv()</code> and export with <code>$this->exportCsv()</code>
+
+4. Additional optional callbacks:
+	- beforeImportCsv($filename, $fields, $options) returns boolean $continue
+	- afterImportCsv($data)
+	- beforeExportCsv($filename, $data, $options) returns boolean $continue
+	- afterExportCsv()
