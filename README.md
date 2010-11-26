@@ -1,7 +1,7 @@
 # CSV Plugin
 
 Allows the importing and exporting of a standard $this->data formatted array to and from csv files.
-Doesn't currently support HABTM.
+Doesn't currently support HABTM. I may remove the component now that I created the behavior instead.
 
 ## Options
 
@@ -58,7 +58,7 @@ Approach 2: Pass an array of fields (in order) to the method
 
 ## Behavior Instructions
 
-The instructions are identical to the component, from a few method name changes and extra callbacks
+The instructions are identical to the component, except for a few method name changes and additional callbacks
 
 1. Add Behavior to the model
 
@@ -69,7 +69,7 @@ The instructions are identical to the component, from a few method name changes 
 3. Follow instruction for the component, Import using <code>$this->importCsv()</code> and export with <code>$this->exportCsv()</code>
 
 4. Additional optional callbacks:
-	- beforeImportCsv($filename, $fields, $options) returns boolean $continue
-	- afterImportCsv($data)
-	- beforeExportCsv($filename, $data, $options) returns boolean $continue
-	- afterExportCsv()
+	- <code>beforeImportCsv($filename, $fields, $options) returns boolean $continue</code>
+	- <code>afterImportCsv($data)</code>
+	- <code>beforeExportCsv($filename, $data, $options) returns boolean $continue</code>
+	- <code>afterExportCsv()</code>
