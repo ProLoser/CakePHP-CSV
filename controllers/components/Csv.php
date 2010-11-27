@@ -37,12 +37,12 @@ class CsvComponent extends Object {
 		if ($file = @fopen(WWW_ROOT . $filename, 'r')) {
 			if (empty($fields)) {
 				// read the 1st row as headings
-				$fields = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure'], $options['escape']);
+				$fields = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure']);
 			}
 			// Row counter
 			$r = 0; 
 			// read each data row in the file
-			while ($row = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure'], $options['escape'])) {
+			while ($row = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure'])) {
 				// for each header field 
 				foreach ($fields as $f => $field) {
 					// get the data field from Model.field

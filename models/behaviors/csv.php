@@ -63,7 +63,7 @@ class CsvBehavior extends ModelBehavior {
 		$options = array_merge($this->defaults, $options);
 		$data = array();
 		
-		if (!$this->trigger($model, 'beforeImportCsv', array($filename, $fields, $options))) {
+		if (!$this->_trigger($model, 'beforeImportCsv', array($filename, $fields, $options))) {
 			return false;
 		}
 				
@@ -71,12 +71,12 @@ class CsvBehavior extends ModelBehavior {
 		if ($file = @fopen(WWW_ROOT . $filename, 'r')) {
 			if (empty($fields)) {
 				// read the 1st row as headings
-				$fields = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure'], $options['escape']);
+				$fields = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure']);
 			}
 			// Row counter
 			$r = 0; 
 			// read each data row in the file
-			while ($row = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure'], $options['escape'])) {
+			while ($row = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure'])) {
 				// for each header field 
 				foreach ($fields as $f => $field) {
 					// get the data field from Model.field
@@ -97,7 +97,7 @@ class CsvBehavior extends ModelBehavior {
 			// close the file
 			fclose($file);
 			
-			$this->trigger($model, 'afterImportCsv', array($data));
+			$this->_trigger($model, 'afterImportCsv', array($data));
 
 			// return the messages
 			return $data;
@@ -117,7 +117,7 @@ class CsvBehavior extends ModelBehavior {
 	public function exportCsv(&$model, $filename, $data, $options = array()) {
 		$options = array_merge($this->defaults, $options);
 		
-		if (!$this->trigger($model, 'beforeExportCsv'), array($filename, $data, $options)) {
+		if (!$this->_trigger($model, 'beforeExportCsv', array($filename, $data, $options))) {
 			return false;
 		}
 		
@@ -157,11 +157,19 @@ class CsvBehavior extends ModelBehavior {
 			// close the file
 			fclose($file);
 			
-			$this->trigger($model, 'afterExportCsv', array());
+			$this->_trigger($model, 'afterExportCsv', array());
 
 			return $r;
 		} else {
 			return false;
+		}
+	}
+	
+	protected function _trigger(&$model, $callback, $parameters) {
+		if (method_exists($model, $callback)) {
+			return call_user_func_array(array($model, $callback), $parameters);
+		} else {
+			return true;
 		}
 	}
 
