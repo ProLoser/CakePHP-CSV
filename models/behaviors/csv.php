@@ -68,7 +68,7 @@ class CsvBehavior extends ModelBehavior {
 		}
 				
 		// open the file
-		if ($file = @fopen(WWW_ROOT . $filename, 'r')) {
+		if ($file = fopen(WWW_ROOT . $filename, 'r')) {
 			if (empty($fields)) {
 				// read the 1st row as headings
 				$fields = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure']);
@@ -122,7 +122,7 @@ class CsvBehavior extends ModelBehavior {
 		}
 		
 		// open the file
-		if ($file = @fopen(WWW_ROOT . $filename, 'w')) {
+		if ($file = fopen(WWW_ROOT . $filename, 'w')) {
 			
 			// Iterate through and format data
 			foreach ($data as $record) {
