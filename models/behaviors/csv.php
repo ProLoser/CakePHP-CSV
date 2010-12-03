@@ -37,6 +37,7 @@ class CsvBehavior extends ModelBehavior {
 		'enclosure' => '"',
 		'escape' => '\\',
 		'headers' => true,
+		'text' => false,
 	);
 
 
@@ -59,16 +60,27 @@ class CsvBehavior extends ModelBehavior {
 	 * @return array of all data from the csv file in [Model][field] format
 	 * @author Dean Sofer
 	 */
-	function importCsv(&$model, $filename, $fields = array(), $options = array()) {
+	function importCsv(&$model, $content, $fields = array(), $options = array()) {
 		$options = array_merge($this->defaults, $options);
-		$data = array();
 		
-		if (!$this->_trigger($model, 'beforeImportCsv', array($filename, $fields, $options))) {
+		if (!$this->_trigger($model, 'beforeImportCsv', array($content, $fields, $options))) {
 			return false;
 		}
-				
+		
+		if ($options['text']) {
+			// store the content to a file and reset
+			$file = fopen("php://memory", "rw");
+			fwrite($file, $content);
+			fseek($file, 0);
+		} else {
+			$file = fopen(WWW_ROOT . $filename, 'r');
+		}
+		
 		// open the file
-		if ($file = fopen(WWW_ROOT . $filename, 'r')) {
+		if ($file) {
+			
+			$data = array();
+			
 			if (empty($fields)) {
 				// read the 1st row as headings
 				$fields = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure']);
@@ -93,6 +105,7 @@ class CsvBehavior extends ModelBehavior {
 				}
 				$r++;
 			}
+			return $data;
 
 			// close the file
 			fclose($file);

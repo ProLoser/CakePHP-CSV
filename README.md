@@ -15,6 +15,8 @@ Importing, exporting and setup come with the same options and default values
 	'escape' => '\\',
 	// Generates a Model.field headings row from the csv file
 	'headers' => true, 
+	// If true, String $content is the data, not a path to the file
+	'text' => false,
 )</pre>
 
 ## Component Instructions
@@ -36,11 +38,11 @@ Post.title, Post.created, Post.modified, body, user_id, Section.name, Category.0
 ..., ..., ...
 </pre>
 
-<pre>$this->data = $this->Csv->import($filepath, $options);</pre>
+<pre>$this->data = $this->Csv->import($content, $options);</pre>
 
 Approach 2: Pass an array of fields (in order) to the method
 
-<pre>$this->data = $this->Csv->import($filepath, array('Post.title', 'Post.created', 'Post.modified', 'body', 'user_id', 'Category.0.name', 'Category.0.description', 'Category.1.name', 'Category.1.description'));</pre>
+<pre>$this->data = $this->Csv->import($content, array('Post.title', 'Post.created', 'Post.modified', 'body', 'user_id', 'Category.0.name', 'Category.0.description', 'Category.1.name', 'Category.1.description'));</pre>
 
 4. Process/save/whatever with the data
 
