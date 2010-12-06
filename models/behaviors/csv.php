@@ -73,7 +73,7 @@ class CsvBehavior extends ModelBehavior {
 			fwrite($file, $content);
 			fseek($file, 0);
 		} else {
-			$file = fopen(WWW_ROOT . $content, 'r');
+			$file = fopen($content, 'r');
 		}
 		
 		// open the file
@@ -135,7 +135,7 @@ class CsvBehavior extends ModelBehavior {
 		}
 		
 		// open the file
-		if ($file = fopen(WWW_ROOT . $filename, 'w')) {
+		if ($file = fopen($filename, 'w')) {
 			
 			// Iterate through and format data
 			foreach ($data as $record) {
