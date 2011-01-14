@@ -91,6 +91,9 @@ class CsvBehavior extends ModelBehavior {
 			while ($row = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure'])) {
 				// for each header field 
 				foreach ($fields as $f => $field) {
+					if (!isset($row[$f])) {
+						$row[$f] = null;
+					}
 					// get the data field from Model.field
 					if (strpos($field,'.')) {
 						$keys = explode('.',$field);
