@@ -141,8 +141,8 @@ class CsvBehavior extends ModelBehavior {
 		if ($file = fopen($filename, 'w')) {
 			
 			// Iterate through and format data
+			$firstRecord = true;
 			foreach ($data as $record) {
-				$firstRecord = true;
 				$row = array();
 				foreach ($record as $model => $fields) {
 					// TODO add parsing for HABTM
