@@ -8,12 +8,22 @@
  **/
 class CsvComponent extends Object {
 	
+	/**
+	 * Allows the mapping of preg-compatible regular expressions to public or
+	 * private methods in this class, where the array key is a /-delimited regular
+	 * expression, and the value is a class method.  Similar to the functionality of
+	 * the findBy* / findAllBy* magic methods.
+	 *
+	 * @var array
+	 * @access public
+	 */
 	var $defaults = array(
 		'length' => 0,
 		'delimiter' => ',',
 		'enclosure' => '"',
 		'escape' => '\\',
 		'headers' => true,
+		'text' => false,
 	);
 	
 	function initialize(&$controller, $settings = array()) {
@@ -85,8 +95,8 @@ class CsvComponent extends Object {
 		if ($file = @fopen(WWW_ROOT . $filename, 'w')) {
 			
 			// Iterate through and format data
+			$firstRecord = true;
 			foreach ($data as $record) {
-				$firstRecord = true;
 				$row = array();
 				foreach ($record as $model => $fields) {
 					// TODO add parsing for HABTM
