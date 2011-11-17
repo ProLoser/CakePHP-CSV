@@ -108,7 +108,6 @@ class CsvBehavior extends ModelBehavior {
 				}
 				$r++;
 			}
-			return $data;
 
 			// close the file
 			fclose($file);
