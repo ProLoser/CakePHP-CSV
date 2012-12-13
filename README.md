@@ -7,7 +7,8 @@ Doesn't currently support HABTM. I may remove the component now that I created t
 
 Importing, exporting and setup come with the same options and default values
 
-<pre>$options = array(
+```php
+$options = array(
 	// Refer to php.net fgetcsv for more information
 	'length' => 0,
 	'delimiter' => ',',
@@ -17,61 +18,78 @@ Importing, exporting and setup come with the same options and default values
 	'headers' => true, 
 	// If true, String $content is the data, not a path to the file
 	'text' => false,
-)</pre>
+)
+```
 
 ## Component Instructions
 
-1. Add Component to controller
+* Add Component to controller
 
-<pre>var $components = array('Csv.Csv' => $options);</pre>
+```php
+var $components = array('Csv.Csv' => $options);
+```
 
 ### Importing
 
-2. Upload a csv file to the server
+* Upload a csv file to the server
 
-3. Import the csv file into your data variable
+* Import the csv file into your data variable:
 
-Approach 1: Use a CSV file with the first row being Model.field headers
+**Approach 1:** Use a CSV file with the first row being Model.field headers
 
-<pre>Posts.csv
+```php
+Posts.csv
 Post.title, Post.created, Post.modified, body, user_id, Section.name, Category.0.name, Category.0.description, Category.1.name, Category.1.description
 ..., ..., ...
-</pre>
+```
 
-<pre>$this->data = $this->Csv->import($content, $options);</pre>
+```php
+$this->data = $this->Csv->import($content, $options);
+```
 
-Approach 2: Pass an array of fields (in order) to the method
+**Approach 2:** Pass an array of fields (in order) to the method
 
-<pre>$this->data = $this->Csv->import($content, array('Post.title', 'Post.created', 'Post.modified', 'body', 'user_id', 'Category.0.name', 'Category.0.description', 'Category.1.name', 'Category.1.description'));</pre>
+```php
+$this->data = $this->Csv->import($content, array('Post.title', 'Post.created', 'Post.modified', 'body', 'user_id', 'Category.0.name', 'Category.0.description', 'Category.1.name', 'Category.1.description'));
+```
 
-4. Process/save/whatever with the data
+* Process/save/whatever with the data
 
-<pre>$this->Post->saveAll($this->data);</pre>
+```php
+$this->Post->saveAll($this->data);
+```
 
 ### Exporting
 
-2. Populate an $this->data type array
+* Populate an $this->data type array
 
-<pre>$data = $this->Post->find('all', array('recursive' => 0));</pre>
+```php
+$data = $this->Post->find('all', array('recursive' => 0));
+```
 
-3. Export to a file in a writeable directory
+* Export to a file in a writeable directory
 
-<pre>$this->Csv->export($filepath, $data, $options);</pre>
+```php
+$this->Csv->export($filepath, $data, $options);
+```
 
 ## Behavior Instructions
 
 The instructions are identical to the component, except for a few method name changes and additional callbacks
 
-1. Add Behavior to the model
+* Add Behavior to the model
 
-<pre>var $components = array('Csv.Csv' => $options);</pre>
+```php
+var $components = array('Csv.Csv' => $options);
+```
 
-2. Upload a csv file to the server
+* Upload a csv file to the server
 
-3. Follow instruction for the component, Import using <code>$this->importCsv()</code> and export with <code>$this->exportCsv()</code>
+* Follow instruction for the component, Import using `$this->importCsv()` and export with `$this->exportCsv()`
 
-4. Additional optional callbacks:
-	- <code>beforeImportCsv($filename, $fields, $options) returns boolean $continue</code>
-	- <code>afterImportCsv($data)</code>
-	- <code>beforeExportCsv($filename, $data, $options) returns boolean $continue</code>
-	- <code>afterExportCsv()</code>
+### Additional optional callbacks:
+
+* `beforeImportCsv($filename, $fields, $options)` returns boolean $continue
+* `afterImportCsv($data)`
+* `beforeExportCsv($filename, $data, $options)` returns boolean $continue
+* `afterExportCsv()`
