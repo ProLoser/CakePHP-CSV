@@ -38,6 +38,7 @@ class CsvBehavior extends ModelBehavior {
 		'escape' => '\\',
 		'headers' => true,
 		'text' => false,
+		'excel_bom' => false,
 	);
 
 
@@ -138,6 +139,10 @@ class CsvBehavior extends ModelBehavior {
 
 		// open the file
 		if ($file = fopen($filename, 'w')) {
+			// Add BOM for proper display UTF-8 in EXCEL
+			if($options['excel_bom']) {
+				fputs($file, chr(239) . chr(187) . chr(191));
+			}
 			// Iterate through and format data
 			$firstRecord = true;
 			foreach ($data as $record) {
