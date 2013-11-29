@@ -130,7 +130,7 @@ class CsvBehavior extends ModelBehavior {
 	 * @return void
 	 * @author Dean
 	 */
-	public public function exportCsv(&$model, $filename, $data, $options = array()) {
+	public function exportCsv(&$model, $filename, $data, $options = array()) {
 		$options = array_merge($this->defaults, $options);
 
 		if (!$this->_trigger($model, 'beforeExportCsv', array($filename, $data, $options))) {

@@ -54,7 +54,7 @@ class CsvComponent extends Component {
 		$data = array();
 
 		// open the file
-		if ($file = @fopen(WWW_ROOT . $filename, 'r')) {
+		if ($file = @fopen($filename, 'r')) {
 			if (empty($fields)) {
 				// read the 1st row as headings
 				$fields = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure']);
@@ -102,7 +102,7 @@ class CsvComponent extends Component {
 		$options = array_merge($this->defaults, $options);
 
 		// open the file
-		if ($file = @fopen(WWW_ROOT . $filename, 'w')) {
+		if ($file = @fopen($filename, 'w')) {
 			// Iterate through and format data
 			$firstRecord = true;
 			foreach ($data as $record) {
