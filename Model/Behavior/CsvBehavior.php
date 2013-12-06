@@ -1,4 +1,5 @@
 <?php
+App::uses('ModelBehavior', 'Model');
 /**
  * Csv Model Behavior
  *
@@ -184,7 +185,7 @@ class CsvBehavior extends ModelBehavior {
 		}
 	}
 
-	protected public function _trigger(&$model, $callback, $parameters) {
+	protected function _trigger(&$model, $callback, $parameters) {
 		if (method_exists($model, $callback)) {
 			return call_user_func_array(array($model, $callback), $parameters);
 		} else {
