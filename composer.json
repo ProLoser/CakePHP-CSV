@@ -1,7 +1,10 @@
 {
-    "name": "you/CakePHP-CSV",
+    "name": "sela/CakePHP-CSV",
     "type": "cakephp-plugin",
     "require": {
         "composer/installers": "~1.0"
+    }
+    "extra": {
+        "installer-name": "Csv"
     }
 }
