@@ -1,0 +1,7 @@
+{
+    "name": "you/CakePHP-CSV",
+    "type": "cakephp-plugin",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
