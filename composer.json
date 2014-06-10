@@ -5,6 +5,10 @@
         "composer/installers": "~1.0"
     }
     "extra": {
-        "installer-name": "Csv"
+        "installer-name": "Csv",
+        "installer-paths": {
+            "Plugin/": ["type:cakephp-plugin"]
+        }
+
     }
 }
