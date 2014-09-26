@@ -1,5 +1,5 @@
 {
-    "name": "sela/CakePHP-CSV",
+    "name": "ProLoser/CakePHP-CSV",
     "type": "cakephp-plugin",
     "require": {
         "composer/installers": "~1.0"
