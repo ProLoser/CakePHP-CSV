@@ -51,7 +51,7 @@ class CsvBehavior extends ModelBehavior {
 	 * @return void
 	 * @access public
 	 */
-	public function setup(&$model, $config = array()) {
+	public function setup($model, $config = array()) {
 		$this->settings[$model->alias] = array_merge($this->defaults, $config);
 	}
 
