@@ -26,7 +26,7 @@ $options = array(
 * Add Component to controller
 
 ```php
-var $components = array('Csv.Csv' => $options);
+public $components = array('Csv.Csv' => $options);
 ```
 
 ### Importing
@@ -80,7 +80,7 @@ The instructions are identical to the component, except for a few method name ch
 * Add Behavior to the model
 
 ```php
-var $components = array('Csv.Csv' => $options);
+public $actsAs = array('Csv.Csv' => $options);
 ```
 
 * Upload a csv file to the server
