@@ -3,12 +3,11 @@
     "type": "cakephp-plugin",
     "require": {
         "composer/installers": "~1.0"
-    }
+    },
     "extra": {
         "installer-name": "Csv",
         "installer-paths": {
             "Plugin/": ["type:cakephp-plugin"]
         }
-
     }
 }
