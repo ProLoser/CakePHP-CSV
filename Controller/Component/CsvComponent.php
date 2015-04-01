@@ -39,7 +39,7 @@ class CsvComponent extends Component {
 	 * @access protected
 	 */
 	protected function _encode($str = '') {
-		return iconv("UTF-8","WINDOWS-1257", html_entity_decode($str, ENT_COMPAT, 'utf-8'));
+		return iconv("UTF-8","UTF-8//TRANSLIT", html_entity_decode($str, ENT_COMPAT, 'utf-8'));
 	}
 
 	/**
