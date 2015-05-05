@@ -1,7 +1,7 @@
 # CSV Plugin
 
 Allows the importing and exporting of a standard $this->data formatted array to and from csv files.
-Doesn't currently support HABTM. I may remove the component now that I created the behavior instead.
+Doesn't currently support HABTM.
 
 ## Options
 
