@@ -11,12 +11,12 @@
     },
     "autoload": {
         "psr-4": {
-            "CakePHP-CSV\\": "src"
+            "CakePHPCSV\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CakePHP-CSV\\Test\\": "tests",
+            "CakePHPCSV\\Test\\": "tests",
             "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
         }
     }
