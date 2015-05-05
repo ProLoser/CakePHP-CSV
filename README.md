@@ -74,13 +74,19 @@ $this->data = $this->Posts->import($content, $options);
 **Approach 2:** Pass an array of fields (in order) to the method
 
 ```php
-$this->data = $this->Posts->import($content, array('Post.title', 'Post.created', 'Post.modified', 'body', 'user_id', 'Category.0.name', 'Category.0.description', 'Category.1.name', 'Category.1.description'));
+$data = $this->Posts->import($content, array('Post.title', 'Post.created', 'Post.modified', 'body', 'user_id', 'Category.0.name', 'Category.0.description', 'Category.1.name', 'Category.1.description'));
 ```
 
 * Process/save/whatever with the data
 
 ```php
-$this->Post->saveAll($this->data);
+$entities = $this->Posts->newEntities($data);
+$Table = $this->Posts;
+$Table->connection()->transactional(function () use ($Table, $entities) {
+    foreach ($entities as $entity) {
+        $Table->save($entity, ['atomic' => false]);
+    }
+});
 ```
 
 ### Exporting
@@ -88,7 +94,7 @@ $this->Post->saveAll($this->data);
 * Populate an $this->data type array
 
 ```php
-$data = $this->Post->find('all', array('recursive' => 0));
+$data = $this->Post->find()->all();
 ```
 
 * Export to a file in a writeable directory
