@@ -135,13 +135,24 @@ class CsvBehavior extends Behavior
             // Iterate through and format data
             $firstRecord = true;
             foreach ($data as $record) {
+                $record = $record->toArray();
                 $row = array();
-                foreach ($record as $this->_table => $fields) {
+                foreach ($record as $field => $value) {
+                    var_dump($value);
+                    if ( !is_array($value) ) {
+                        $row[] = $value;
+                        if ($firstRecord) {
+                            $headers[] = $field;
+                        }
+                        continue;
+                    }
+                    $table = $field;
+                    $fields = $value;
                     // TODO add parsing for HABTM
                     foreach ($fields as $field => $value) {
                         if (!is_array($value)) {
                             if ($firstRecord) {
-                                $headers[] = $this->_table . '.' . $field;
+                                $headers[] = $table . '.' . $field;
                             }
                             $row[] = $value;
                         } // TODO due to HABTM potentially being huge, creating an else might not be plausible
