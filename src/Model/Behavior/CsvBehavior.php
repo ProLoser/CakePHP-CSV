@@ -78,6 +78,7 @@ class CsvBehavior extends Behavior
                     if (!isset($row[$f])) {
                         $row[$f] = null;
                     }
+                    $row[$f] = trim($row[$f]);
                     // get the data field from Model.field
                     if (strpos($field,'.')) {
                         $keys = explode('.',$field);
