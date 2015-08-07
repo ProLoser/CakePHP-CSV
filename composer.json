@@ -2,7 +2,6 @@
     "name": "pro-loser/cake-php-csv",
     "type": "cakephp-plugin",
     "require": {
-        "composer/installers": "~1.0",
         "php": ">=5.4.16",
         "cakephp/cakephp": "~3.0"
     },
@@ -11,12 +10,12 @@
     },
     "autoload": {
         "psr-4": {
-            "CakePHP-CSV\\": "src"
+            "CakePHPCSV\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CakePHP-CSV\\Test\\": "tests",
+            "CakePHPCSV\\Test\\": "tests",
             "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
         }
     }
