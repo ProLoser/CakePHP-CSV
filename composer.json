@@ -1,5 +1,5 @@
 {
-    "name": "ProLoser/CakePHP-CSV",
+    "name": "pro-loser/cake-php-csv",
     "type": "cakephp-plugin",
     "require": {
         "php": ">=5.4.16",
