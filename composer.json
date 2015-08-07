@@ -1,5 +1,5 @@
 {
-    "name": "pro-loser/cake-php-csv",
+    "name": "proloser/cakephp-csv",
     "type": "cakephp-plugin",
     "require": {
         "composer/installers": "~1.0",
