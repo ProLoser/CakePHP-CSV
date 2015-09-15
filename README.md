@@ -70,7 +70,7 @@ $data = $this->Post->find('all', array('recursive' => 0));
 * Export to a file in a writeable directory
 
 ```php
-$this->Csv->exportCsv($filepath, $data, $options);
+$this->Csv->export($filepath, $data, $options);
 ```
 
 ## Behavior Instructions
