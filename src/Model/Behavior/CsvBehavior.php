@@ -139,7 +139,6 @@ class CsvBehavior extends Behavior
                 $record = $record->toArray();
                 $row = array();
                 foreach ($record as $field => $value) {
-                    var_dump($value);
                     if ( !is_array($value) ) {
                         $row[] = $value;
                         if ($firstRecord) {
