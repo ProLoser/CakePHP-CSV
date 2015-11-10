@@ -109,3 +109,11 @@ $this->Posts->exportCsv($filepath, $data, $options);
 * `afterImportCsv($data)`
 * `beforeExportCsv($filename, $data, $options)` returns boolean $continue
 * `afterExportCsv()`
+
+### FAQ
+
+#### Incorrect Line Endings (OSX)
+Some people [have mentioned](https://github.com/ProLoser/CakePHP-CSV/issues/6) having incorrect line endings. This can be fixed by having this in your php codebase:
+```
+ini_set("auto_detect_line_endings", true);
+```
