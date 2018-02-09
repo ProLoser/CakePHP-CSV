@@ -100,6 +100,11 @@ class CsvComponent extends Component {
 	 */
 	public function export($filename, $data, $options = array()) {
 		$options = array_merge($this->defaults, $options);
+		
+		if($filename === null){
+		    $filename = "php://output";
+		    $this->sendHttpHeaders();
+		}
 
 		// open the file
 		if ($file = @fopen($filename, 'w')) {
@@ -140,6 +145,27 @@ class CsvComponent extends Component {
 		} else {
 			return false;
 		}
+	}
+	
+	public function setFileNameOut($name = 'export-data.csv')
+	{
+		return $this->filename_out = $name;
+	}
+
+	public function getFileNameOut()
+	{
+		return $this->filename_out;
+	}
+
+	public function sendHttpHeaders() 
+	{
+		header('Content-Encoding: UTF-8');
+		header('Content-Type: text/csv; charset=utf-8' );
+		header(sprintf( 'Content-Disposition: attachment; filename=%s', basename($this->getFileNameOut()) ) );
+		header('Content-Transfer-Encoding: binary');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Pragma: public');
 	}
 }
 ?>
