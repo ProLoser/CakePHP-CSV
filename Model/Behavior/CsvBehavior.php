@@ -155,6 +155,11 @@ class CsvBehavior extends ModelBehavior {
 							if ($firstRecord) {
 								$headers[] = $model . '.' . $field;
 							}
+							
+							if(is_bool($value)){
+							    $value = ($value)?'1':'0';
+                            				}
+							
 							$row[] = $value;
 						} // TODO due to HABTM potentially being huge, creating an else might not be plausible
 					}
