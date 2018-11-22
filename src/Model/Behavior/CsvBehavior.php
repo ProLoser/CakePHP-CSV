@@ -71,7 +71,7 @@ class CsvBehavior extends Behavior
             // Row counter
             $r = 0;
             // read each data row in the file
-            $alias = $this->_table->alias();
+            $alias = $this->_table->getAlias();
             while ($row = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure'])) {
                 // for each header field
                 foreach ($fields as $f => $field) {
