@@ -35,7 +35,7 @@ class CsvBehavior extends Behavior
      */
     public function importCsv($content, $fields = array(), $options = array())
     {
-        $config = $this->config();
+        $config = $this->getConfig();
         $options = array_merge($config, $options);
 
         if (!$this->_trigger('beforeImportCsv', array($content, $fields, $options))) {
@@ -120,7 +120,7 @@ class CsvBehavior extends Behavior
      */
     public function exportCsv($filename, $data, $options = array())
     {
-        $config = $this->config();
+        $config = $this->getConfig();
         $options = array_merge($config, $options);
 
         if (!$this->_trigger('beforeExportCsv', array($filename, $data, $options))) {
