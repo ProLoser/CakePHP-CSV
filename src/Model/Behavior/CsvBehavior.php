@@ -35,7 +35,7 @@ class CsvBehavior extends Behavior
      */
     public function importCsv($content, $fields = array(), $options = array())
     {
-        $config = $this->config();
+        $config = $this->getConfig();
         $options = array_merge($config, $options);
 
         if (!$this->_trigger('beforeImportCsv', array($content, $fields, $options))) {
@@ -71,7 +71,7 @@ class CsvBehavior extends Behavior
             // Row counter
             $r = 0;
             // read each data row in the file
-            $alias = $this->_table->alias();
+            $alias = $this->_table->getAlias();
             while ($row = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure'])) {
                 // for each header field
                 foreach ($fields as $f => $field) {
@@ -120,7 +120,7 @@ class CsvBehavior extends Behavior
      */
     public function exportCsv($filename, $data, $options = array())
     {
-        $config = $this->config();
+        $config = $this->getConfig();
         $options = array_merge($config, $options);
 
         if (!$this->_trigger('beforeExportCsv', array($filename, $data, $options))) {
