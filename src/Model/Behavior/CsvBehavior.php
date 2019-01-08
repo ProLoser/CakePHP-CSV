@@ -29,7 +29,9 @@ class CsvBehavior extends Behavior
     /**
      * Import public function
      *
-     * @param string $filename path to the file under webroot
+     * @param string $conent filename or path to the file under webroot
+     * @param array $fields to import
+     * @param array $options to set
      * @return array of all data from the csv file in [Model][field] format
      * @author Dean Sofer
      */
@@ -113,8 +115,8 @@ class CsvBehavior extends Behavior
     /**
      * Converts a data array into
      *
-     * @param string $filename
-     * @param string $data
+     * @param string $filename to export to
+     * @param string $data to export
      * @return void
      * @author Dean
      */
